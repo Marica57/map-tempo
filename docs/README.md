@@ -28,8 +28,8 @@ ažurira se i pripadni dokument.
 
 ## Status
 
-Faza: **implementacija (v1)**. Specifikacija dogovorena i potvrđena; aplikacija izgrađena
-(Vite + React + TS + Tailwind + vite-plugin-pwa). Svih pet modova implementirano; build prolazi.
-Upute za pokretanje/objavu u [`../README.md`](../README.md).
+Faza: **objavljeno (v1)**. Specifikacija dogovorena i potvrđena; aplikacija izgrađena
+(Vite + React + TS + Tailwind + vite-plugin-pwa), svih pet modova. **Živo:** https://map-tempo.vercel.app
+(Vercel, auto-deploy iz https://github.com/Marica57/map-tempo). Upute u [`../README.md`](../README.md).
 
 Preostalo/kasnije: PNG ikone za iOS, fino ugađanje zvuka po uređaju, eventualni presetovi intervala.

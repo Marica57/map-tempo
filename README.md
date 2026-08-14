@@ -4,6 +4,9 @@ Vizualni tempo-trener i timeri (PWA). Radi offline, bez baze i bez prijave; inst
 mobitel/tablet ("Dodaj na početni zaslon"). Pet modova: **Tempo, Disanje, Štoperica,
 Odbrojavanje, Intervali**.
 
+- **Živo:** https://map-tempo.vercel.app
+- **Repozitorij:** https://github.com/Marica57/map-tempo (push na `main` → Vercel auto-deploy)
+
 Puna specifikacija ponašanja i dizajna: [`docs/`](docs/README.md).
 
 ## Tehnologija
