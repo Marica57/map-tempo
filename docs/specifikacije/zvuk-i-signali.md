@@ -1,6 +1,6 @@
 # Specifikacija — Zvuk i signali
 
-Zadnje ažurirano: 2026-08-14
+Zadnje ažurirano: 2026-08-17
 
 Zvuk je **ključan** dio aplikacije: klijent ne može uvijek gledati u ekran, pa mora **čuti**
 gdje je u fazi. Pravila vrijede za oba moda ([Tempo](mod-tempo.md) i [Disanje](mod-disanje.md)),

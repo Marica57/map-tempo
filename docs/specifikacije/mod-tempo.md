@@ -1,6 +1,6 @@
 # Specifikacija — Mod: Tempo
 
-Zadnje ažurirano: 2026-08-14
+Zadnje ažurirano: 2026-08-17
 
 Vođenje kroz **tempo izvođenja vježbe**: točkica putuje po vodoravnoj liniji i pokazuje koliko
 traje svaka faza pokreta. Zajednički zvuk i priprema opisani su u [Zvuk i signali](zvuk-i-signali.md).
@@ -38,7 +38,8 @@ Faze s trajanjem `0` se u potpunosti izostavljaju iz ciklusa (točkica ne "skač
 - **Točkica na liniji** — glavna vizualna referenca.
 - **Oznaka faze** — tekst trenutne faze (npr. "Spuštanje", "Zastoj dolje", "Dizanje", "Zastoj gore").
 - **Veliko odbrojavanje** — preostale sekunde tekuće faze (npr. `5 → 4 → 3 → 2 → 1`).
-- **Brojač ponavljanja** — `Ponav. X / N`.
+- **Brojač ponavljanja** — `Ponav. X / N`; prikazan **velik i uočljiv** (podebljan, teal), da je
+  čitljiv i kad trener drži uređaj, a klijent gleda s udaljenosti.
 
 ## Ponavljanja
 

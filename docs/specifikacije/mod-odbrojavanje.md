@@ -1,6 +1,6 @@
 # Specifikacija — Mod: Odbrojavanje
 
-Zadnje ažurirano: 2026-08-14
+Zadnje ažurirano: 2026-08-17
 
 Odbrojavanje od zadanog vremena prema nuli, s **kružnom** vizualizacijom: točka putuje po
 kružnici i dođe do kraja (puni krug) točno kad istekne vrijeme.

@@ -18,11 +18,11 @@ ažurira se i pripadni dokument.
   razlike u prikazu i zvuku.
 - [Mod: Štoperica](specifikacije/mod-stoperica.md) — klasična štoperica, Kreni/Stani, MM:SS.cc.
 - [Mod: Odbrojavanje](specifikacije/mod-odbrojavanje.md) — kružna vizualizacija, točka po kružnici,
-  četvrtine/polovina, broj u sredini, staje na kraju.
+  četvrtine/polovina, broj u sredini, **priprema (opcionalno)**, staje na kraju.
 - [Mod: Intervali](specifikacije/mod-intervali.md) — HIIT: priprema, rad, pauza, vježbe, serije,
   pauza između serija, završni oporavak; izračun ukupnog trajanja, brojači.
 - [Zvuk i signali](specifikacije/zvuk-i-signali.md) — tihi tik po sekundi, jači ton na kraju faze,
-  priprema 3-2-1, vibracija, pravila glasnoće (dijeli se između modova).
+  priprema 3-2-1, vibracija, **mute + klizač glasnoće** (dijeli se između modova).
 - [Dizajn i stil](specifikacije/dizajn-i-stil.md) — boje, tipografija, komponente, linijska i kružna
   vizualizacija, raspored, responzivnost, tamni način — usklađeno s vizualnim identitetom map-app.
 

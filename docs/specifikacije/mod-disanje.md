@@ -1,6 +1,6 @@
 # Specifikacija — Mod: Disanje
 
-Zadnje ažurirano: 2026-08-14
+Zadnje ažurirano: 2026-08-17
 
 Vođenje kroz **ritam disanja**. Koristi **isti 4-fazni motor** kao [Mod: Tempo](mod-tempo.md),
 ali s drugim oznakama i naglaskom na disanje. Zajednički zvuk/priprema: [Zvuk i signali](zvuk-i-signali.md).
@@ -41,7 +41,7 @@ vizualnu metaforu (npr. rastuća kružnica), to je zasebno otvoreno pitanje — 
 - **Točkica na liniji** (kao Tempo).
 - **Velika oznaka faze**: `UDAH` / `ZADRŽI` / `IZDAH` / `ZADRŽI`.
 - **Veliko odbrojavanje** preostalih sekundi faze.
-- **Brojač ponavljanja** (broj ciklusa disanja) — `Ciklus X / N`.
+- **Brojač ciklusa** — `Ciklus X / N`; prikazan **velik i uočljiv** (podebljan, teal), čitljiv s udaljenosti.
 
 ## Ponavljanja i priprema
 

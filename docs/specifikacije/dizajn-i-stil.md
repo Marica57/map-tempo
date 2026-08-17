@@ -1,6 +1,6 @@
 # Specifikacija — Dizajn i stil
 
-Zadnje ažurirano: 2026-08-14
+Zadnje ažurirano: 2026-08-17
 
 MAP Tempo prati **vizualni identitet map-app** radi dosljednosti. Vrijednosti su preuzete iz
 `map-app/tailwind.config.ts`.
@@ -38,27 +38,41 @@ MAP Tempo prati **vizualni identitet map-app** radi dosljednosti. Vrijednosti su
 Jedan ekran, okomiti raspored (odozgo prema dolje). Sadržaj zone vizualizacije i postavki mijenja
 se prema modu:
 
+0. **Zaglavlje (header)** — naslov "MAP **Tempo**" (teal), te s desne strane: **mute** (🔊/🔇),
+   **klizač glasnoće** (0–100%) i **prebacivač teme** (☀️/🌙). Vidi [Zvuk i signali](zvuk-i-signali.md).
 1. **Prebacivač moda** — segmentirani izbornik: Tempo / Disanje / Štoperica / Odbrojavanje / Intervali.
-   Kod 5 stavki na mobitelu: skrolabilni segmenti, kompaktne ikone + tekst, ili padajući izbornik.
+   As-built: **vodoravno skrolabilni segmenti** (na uske ekrane), aktivni segment ispunjen teal bojom.
 2. **Zona vizualizacije** (kartica) — ovisi o modu:
    - **Tempo / Disanje**: vodoravna **linija** s **točkom** (lijevo=gore, desno=dolje), male oznake
-     krajeva, **oznaka faze**, **veliko odbrojavanje**, **brojač ponavljanja/ciklusa**.
+     krajeva, **oznaka faze**, **veliko odbrojavanje** (~44px), i **veliki, uočljiv brojač
+     ponavljanja/ciklusa** (~30px, podebljan, teal — čitljiv s udaljenosti).
    - **Štoperica**: **veliko vrijeme** (MM:SS.cc) u sredini.
-   - **Odbrojavanje**: **kružnica** s **točkom** po obodu + **broj u sredini** (vidi niže).
+   - **Odbrojavanje**: **kružnica** s **točkom** po obodu + **broj u sredini**; iznad kruga oznaka
+     "Priprema" (žuta) tijekom pripreme (vidi niže).
    - **Intervali**: ista kružnica + **oznaka faze** (RAD/PAUZA/…), **Serija X/N**, **Vježba Y/M**,
      **Ukupno** (preostalo/proteklo).
-3. **Kontrole** — Pokreni/Pauza (Kreni/Stani kod štoperice; primarni gumb), Reset, Zvuk uklj./isklj.
+3. **Kontrole** — Pokreni/Pauza (Kreni/Stani kod štoperice; primarni teal gumb), Reset. As-built
+   koriste se tekstualni simboli (▶ / ❙❙ / ↺). Zvuk je u zaglavlju (klizač + mute).
 4. **Postavke** (kartica) — polja po modu:
-   - Tempo: 4 znamenke (**bez presetova — uvijek ručni unos**); Disanje: Udah/Zadrži/Izdah/Zadrži
-     (+ presetovi disanja); oba + Ponavljanja/Ciklusi.
-   - Štoperica: nema postavki (osim reset).
-   - Odbrojavanje: vrijeme (min:sek) ili brzi gumbi.
+   - Tempo: 4 znamenke (**bez presetova — uvijek ručni unos**) + Ponavljanja + Priprema.
+   - Disanje: Udah/Zadrži/Izdah/Zadrži (4 znamenke) + presetovi disanja + Ciklusi + Priprema.
+   - Štoperica: nema postavki (osim Reset).
+   - Odbrojavanje: **brzi gumbi** (0:30, 0:45, 1:00, 1:30, 2:00) + **Min / Sek / Priprema (s)**.
    - Intervali: priprema, trajanje rada, trajanje pauze, broj vježbi, broj serija, pauza između
      serija, vrijeme oporavka; prikaz **ukupnog trajanja**.
-   - Zajedničko gdje ima smisla: **Priprema (s)** — default 5, **Primjeri** (presetovi).
 
 - Kartice: bijela površina, meki `shadow-card`, zaobljeni rubovi — kao map-app.
-- Gumbi: primarni (teal) za glavnu akciju, sekundarni (obrub) za Reset/Zvuk.
+- Gumbi: primarni (teal) za glavnu akciju, sekundarni (obrub) za Reset.
+
+## Brojčana polja (unos)
+
+Sva brojčana polja koriste zajedničku "pametnu" komponentu (`NumberField`):
+
+- Dok korisnik tipka, polje **ne mijenja unos** i može biti privremeno **prazno** (ne iskače na 1).
+- Vrijednost se **provjeri/potvrdi tek na izlasku iz polja** (blur) ili tipkom Enter.
+- **Prazno/neispravno** na izlasku → **vrati prethodnu vrijednost**.
+- **Izvan raspona** → svede na **min/max** (npr. ponavljanja 1–99, priprema 0–60 s).
+- Promjena parametra radi reset tekućeg ciklusa i (gdje ima smisla) ponovni izračun ukupnog vremena.
 
 ## Linijska vizualizacija (Tempo, Disanje)
 
@@ -94,12 +108,16 @@ se prema modu:
 
 ## PWA izgled
 
-- **Manifest**: ime "MAP Tempo", ikona (teal, jednostavan motiv točkice/linije), tema boja
-  `#2B717F`, pozadina `#F7F6F3`, `display: standalone`.
-- Ikona i splash usklađeni s bojama gore.
+- **Manifest**: ime "MAP Tempo", tema boja `#2B717F`, pozadina `#F7F6F3`, `display: standalone`,
+  `orientation: any`.
+- **Ikone (as-built)**: generiraju se iz SVG izvora (`public/icon.svg` zaobljena, `icon-square.svg`
+  kvadratna) skriptom `npm run gen:icons` (sharp):
+  - Android: `pwa-192x192.png`, `pwa-512x512.png` ("any") + `maskable-icon-512x512.png` (maskable).
+  - iOS: `apple-touch-icon-180x180.png` (bez prozirnosti, iOS sam zaokružuje).
+  - Motiv: teal podloga + kružnica/linija + točka.
 
 ## Otvorena pitanja za dizajn
 
-- Točan izgled ikone aplikacije (logo).
+- Eventualno dotjerati sam **logo/ikonu** (trenutni motiv je jednostavan placeholder).
 - Treba li **prikaz cijelog tempa** kao mala vremenska traka ispod linije (pregled svih faza) —
   moguće kao "nice to have".
