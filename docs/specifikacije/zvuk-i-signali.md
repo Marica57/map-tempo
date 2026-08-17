@@ -40,8 +40,12 @@ Pravila:
 
 ## Kontrola zvuka
 
-- **Prekidač Zvuk uklj./isklj.** vidljiv na glavnom ekranu; stanje se pamti u `localStorage`.
-- (Opcionalno) **klizač glasnoće**. Za prvu verziju dovoljan je uklj./isklj.
+- **Prekidač Zvuk uklj./isklj.** (mute) u zaglavlju; stanje se pamti u `localStorage` (`mt:sound`).
+- **Klizač glasnoće** (master volume 0–100%) u zaglavlju; pamti se (`mt:vol`, default 0.8).
+  - Množi se sa svim signalima (relativne razine: tik ~0.4, polovica ~0.6, kraj/rad ~1.0, pauza ~0.85).
+  - Povlačenjem klizača gore zvuk se **automatski uključi** (ako je bio mutiran); mute-gumb je zaseban
+    i čuva razinu glasnoće (ne postavlja je na 0).
+  - Na otpuštanju klizača svira kratki **preview ton** da se čuje odabrana glasnoća.
 - Zbog pravila preglednika, **AudioContext se pokreće tek na prvu korisničku akciju** (klik na
   Pokreni/Zvuk). To je normalno i očekivano ponašanje.
 

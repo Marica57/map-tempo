@@ -10,6 +10,7 @@ import Intervals from './modes/Intervals';
 export default function App() {
   const [mode, setMode] = useLocalStorage<ModeId>('mt:mode', 'tempo');
   const [soundOn, setSoundOn] = useLocalStorage('mt:sound', true);
+  const [volume, setVolume] = useLocalStorage('mt:vol', 0.8);
   const [dark, setDark] = useLocalStorage<boolean | null>('mt:dark', null);
 
   // Tema: null = slijedi sustav; true/false = ručni odabir.
@@ -29,6 +30,10 @@ export default function App() {
   useEffect(() => {
     audio.soundOn = soundOn;
   }, [soundOn]);
+
+  useEffect(() => {
+    audio.volume = volume;
+  }, [volume]);
 
   const isDark =
     dark == null ? window.matchMedia('(prefers-color-scheme: dark)').matches : dark;
@@ -52,6 +57,26 @@ export default function App() {
             >
               {soundOn ? '🔊' : '🔇'}
             </button>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={Math.round(volume * 100)}
+              aria-label="Glasnoća"
+              title="Glasnoća"
+              onChange={(e) => {
+                const v = Number(e.target.value) / 100;
+                setVolume(v);
+                if (v > 0 && !soundOn) setSoundOn(true);
+              }}
+              onPointerUp={() => {
+                audio.ensure();
+                audio.preview();
+              }}
+              className="w-20 sm:w-28 accent-primary dark:accent-primary-dark"
+              style={{ accentColor: isDark ? '#2B9CAD' : '#2B717F' }}
+            />
             <button
               onClick={() => setDark(!isDark)}
               aria-label="Promijeni temu"
