@@ -14,6 +14,9 @@ type Machine = {
   q: boolean[]; // četvrtine [.25,.5,.75]
   last: number;
   active: boolean;
+  prep: number;
+  inPrep: boolean;
+  lastPrep: number;
 };
 
 const QUICK: [string, number][] = [
@@ -23,18 +26,25 @@ const QUICK: [string, number][] = [
 export default function Countdown() {
   const [min, setMin] = useLocalStorage('cd:min', 0);
   const [sec, setSec] = useLocalStorage('cd:sec', 30);
+  const [prep, setPrep] = useLocalStorage('cd:prep', 5);
   const [running, setRunning] = useState(false);
+  const [phaseLabel, setPhaseLabel] = useState('');
 
   const ringRef = useRef<SVGCircleElement>(null);
   const dotRef = useRef<SVGCircleElement>(null);
   const numRef = useRef<HTMLDivElement>(null);
   const { start, stop } = useRaf();
-  const m = useRef<Machine>({ off: 0, t0: 0, T: 30, q: [false, false, false], last: -1, active: false });
+  const m = useRef<Machine>({
+    off: 0, t0: 0, T: 30, q: [false, false, false], last: -1, active: false,
+    prep: 5, inPrep: false, lastPrep: -1,
+  });
 
   const total = () => Math.max(1, (min | 0) * 60 + (sec | 0));
 
   const showIdle = () => {
     m.current.T = total();
+    m.current.inPrep = false;
+    setPhaseLabel('');
     initCircle(ringRef.current, dotRef.current);
     if (numRef.current) numRef.current.textContent = bigSec(m.current.T);
   };
@@ -47,6 +57,28 @@ export default function Countdown() {
   const step = () => {
     const s = m.current;
     const el = s.off + (performance.now() - s.t0) / 1000;
+
+    if (s.inPrep) {
+      const rem = Math.ceil(s.prep - el);
+      if (numRef.current) numRef.current.textContent = String(Math.max(0, rem));
+      paintCircle(ringRef.current, dotRef.current, 0);
+      if (rem <= 3 && rem >= 1 && rem !== s.lastPrep) {
+        s.lastPrep = rem;
+        audio.soft();
+      }
+      if (el >= s.prep) {
+        audio.strong();
+        audio.vibrate(60);
+        s.inPrep = false;
+        s.off = 0;
+        s.t0 = performance.now();
+        s.q = [false, false, false];
+        s.last = -1;
+        setPhaseLabel('');
+      }
+      return;
+    }
+
     const prog = Math.min(el / s.T, 1);
     const rem = s.T - el;
     paintCircle(ringRef.current, dotRef.current, prog);
@@ -87,11 +119,22 @@ export default function Countdown() {
     audio.ensure();
     const s = m.current;
     s.T = total();
+    s.prep = Math.max(0, prep | 0);
     s.off = 0;
     s.q = [false, false, false];
     s.last = -1;
     s.active = true;
     s.t0 = performance.now();
+    if (s.prep > 0) {
+      s.inPrep = true;
+      s.lastPrep = -1;
+      setPhaseLabel('Priprema');
+      initCircle(ringRef.current, dotRef.current);
+      if (numRef.current) numRef.current.textContent = String(s.prep);
+    } else {
+      s.inPrep = false;
+      setPhaseLabel('');
+    }
     setRunning(true);
     start(step);
   };
@@ -130,6 +173,9 @@ export default function Countdown() {
   return (
     <div className="space-y-4">
       <Card>
+        <div className="text-center text-sm text-warning min-h-[20px] mb-1 font-medium">
+          {phaseLabel}
+        </div>
         <CircleViz ringRef={ringRef} dotRef={dotRef} numRef={numRef} color="#2B9CAD" />
       </Card>
       <Card>
@@ -140,12 +186,15 @@ export default function Countdown() {
             </GhostButton>
           ))}
         </div>
-        <div className="grid gap-3 max-w-[260px] mx-auto" style={{ gridTemplateColumns: '1fr 1fr' }}>
+        <div className="grid gap-3 max-w-[360px] mx-auto" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
           <Field label="Min">
             <NumberField value={min} min={0} max={59} onCommit={setMin} />
           </Field>
           <Field label="Sek">
             <NumberField value={sec} min={0} max={59} onCommit={setSec} />
+          </Field>
+          <Field label="Priprema (s)">
+            <NumberField value={prep} min={0} max={60} onCommit={setPrep} />
           </Field>
         </div>
         <div className="flex gap-2 justify-center mt-4 flex-wrap">

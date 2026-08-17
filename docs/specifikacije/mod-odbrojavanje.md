@@ -32,6 +32,13 @@ kružnici i dođe do kraja (puni krug) točno kad istekne vrijeme.
   vibracija, i odbrojavanje **staje** (ne ponavlja se automatski).
 - Vizualni završetak (npr. puni obojani krug + oznaka "Gotovo").
 
+## Priprema
+
+- Polje **Priprema (s)** (default 5, podesivo, 0 = bez pripreme) — kao kod ostalih modova.
+- Prije samog odbrojavanja ide priprema: u sredini kruga odbrojava `5…4…3…2…1`, oznaka "Priprema"
+  (žuta) iznad kruga, prsten miruje na 0. Zadnje 3 s naglašeno (3-2-1), jači ton na prijelazu u
+  stvarno odbrojavanje. Vidi [Zvuk i signali](zvuk-i-signali.md).
+
 ## Kontrole
 
 - **Pokreni / Pauza / Reset** (Pauza zamrzne točku i broj; Reset vraća na početno vrijeme).

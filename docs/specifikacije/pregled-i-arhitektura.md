@@ -88,8 +88,8 @@ Detaljan raspored, boje i responzivnost: [Dizajn i stil](dizajn-i-stil.md).
 - **Kružni modovi** (Odbrojavanje, Intervali): točka kreće **s vrha, u smjeru kazaljke**; četvrtine
   suptilne, polovina malo jače naglašena; broj u sredini; **staje na kraju** (bez auto-ponavljanja).
 - Tempo se unosi kao **4 znamenke**; `0` znači "preskoči tu fazu, odmah dalje".
-- **Priprema prije početka**: default **5 s**, korisnik može postaviti proizvoljno (vrijedi za
-  modove koji je koriste: Tempo, Disanje, Intervali; Odbrojavanje po želji).
+- **Priprema prije početka**: default **5 s**, korisnik može postaviti proizvoljno (Tempo, Disanje,
+  Odbrojavanje, Intervali; Štoperica nema pripremu).
 - **Štoperica**: format **MM:SS.cc** (sa stotinkama); mjeri stvarno proteklo vrijeme.
 - **Intervali**: zadnja pauza u seriji se **preskače**; **vrijeme oporavka** je **završni** odmor;
   sustav prikazuje **ukupno trajanje** i broji serije/vježbe.
