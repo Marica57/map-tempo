@@ -225,7 +225,7 @@ export default function LineMode({
         >
           –
         </div>
-        <div className="text-center text-sm text-text-secondary dark:text-text-secondary-dark">
+        <div className="text-center mt-1 text-[30px] leading-none font-semibold tabular-nums text-primary dark:text-primary-dark">
           {repText}
         </div>
       </Card>
