@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { audio } from '../lib/audio';
 import { useRaf } from '../lib/useRaf';
 import { useLocalStorage } from '../lib/useLocalStorage';
-import { Card, Field, NumberInput, TextInput, PrimaryButton, GhostButton } from '../components/ui';
+import { Card, Field, NumberField, TextInput, PrimaryButton, GhostButton } from '../components/ui';
 
 type Phase = { d: number; from: number; to: number; name: string };
 type Machine = {
@@ -176,14 +176,14 @@ export default function LineMode({
     start(step);
   };
 
-  const reset = () => {
+  const reset = (nReps?: number) => {
     stop();
     m.current.active = false;
     setRunning(false);
     setDot(0);
     if (countRef.current) countRef.current.textContent = '–';
     setPhaseLabel('Spremno');
-    setRepText(`${counterWord} 0 / ${Math.max(1, reps | 0)}`);
+    setRepText(`${counterWord} 0 / ${Math.max(1, (nReps ?? reps) | 0)}`);
   };
 
   const toggle = () => {
@@ -242,19 +242,19 @@ export default function LineMode({
             />
           </Field>
           <Field label={breathing ? 'Ciklusi' : 'Ponavljanja'}>
-            <NumberInput
+            <NumberField
               value={reps}
               min={1}
               max={99}
-              onChange={(e) => { setReps(Math.max(1, +e.target.value || 1)); reset(); }}
+              onCommit={(n) => { setReps(n); reset(n); }}
             />
           </Field>
           <Field label="Priprema (s)">
-            <NumberInput
+            <NumberField
               value={prep}
               min={0}
               max={60}
-              onChange={(e) => { setPrep(Math.max(0, +e.target.value || 0)); reset(); }}
+              onCommit={(n) => { setPrep(n); reset(); }}
             />
           </Field>
           {breathing && (
@@ -280,7 +280,7 @@ export default function LineMode({
           <PrimaryButton onClick={toggle}>
             {running ? '❙❙ Pauza' : m.current.active ? '▶ Nastavi' : '▶ Pokreni'}
           </PrimaryButton>
-          <GhostButton onClick={reset}>↺ Reset</GhostButton>
+          <GhostButton onClick={() => reset()}>↺ Reset</GhostButton>
         </div>
       </Card>
     </div>

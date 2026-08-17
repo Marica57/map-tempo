@@ -5,7 +5,7 @@ import { useLocalStorage } from '../lib/useLocalStorage';
 import { bigSec, msFmt } from '../lib/format';
 import { initCircle, paintCircle } from '../lib/circle';
 import { CircleViz } from '../components/CircleViz';
-import { Card, Field, NumberInput, PrimaryButton, GhostButton } from '../components/ui';
+import { Card, Field, NumberField, PrimaryButton, GhostButton } from '../components/ui';
 
 type Machine = {
   off: number;
@@ -142,10 +142,10 @@ export default function Countdown() {
         </div>
         <div className="grid gap-3 max-w-[260px] mx-auto" style={{ gridTemplateColumns: '1fr 1fr' }}>
           <Field label="Min">
-            <NumberInput value={min} min={0} max={59} onChange={(e) => setMin(Math.max(0, +e.target.value || 0))} />
+            <NumberField value={min} min={0} max={59} onCommit={setMin} />
           </Field>
           <Field label="Sek">
-            <NumberInput value={sec} min={0} max={59} onChange={(e) => setSec(Math.max(0, +e.target.value || 0))} />
+            <NumberField value={sec} min={0} max={59} onCommit={setSec} />
           </Field>
         </div>
         <div className="flex gap-2 justify-center mt-4 flex-wrap">

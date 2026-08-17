@@ -5,7 +5,7 @@ import { useLocalStorage } from '../lib/useLocalStorage';
 import { msFmt } from '../lib/format';
 import { initCircle, paintCircle } from '../lib/circle';
 import { CircleViz } from '../components/CircleViz';
-import { Card, Field, NumberInput, PrimaryButton, GhostButton } from '../components/ui';
+import { Card, Field, NumberField, PrimaryButton, GhostButton } from '../components/ui';
 
 type PhaseType = 'priprema' | 'rad' | 'pauza' | 'serija' | 'oporavak';
 type Phase = { t: PhaseType; d: number; s?: number; v?: number };
@@ -241,10 +241,11 @@ export default function Intervals() {
         <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(120px,1fr))' }}>
           {P.map(([label, val, setter]) => (
             <Field key={label} label={label}>
-              <NumberInput
+              <NumberField
                 value={val}
                 min={label.startsWith('Rad') || label.startsWith('Broj') ? 1 : 0}
-                onChange={(e) => setter(Math.max(0, +e.target.value || 0))}
+                max={label.startsWith('Broj') ? 99 : 3600}
+                onCommit={setter}
               />
             </Field>
           ))}
