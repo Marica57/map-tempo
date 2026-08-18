@@ -108,8 +108,8 @@ export default function Countdown() {
       stop();
       s.active = false;
       setRunning(false);
-      audio.strong();
-      audio.vibrate(120);
+      audio.finish();
+      audio.vibrate([80, 50, 160]);
       paintCircle(ringRef.current, dotRef.current, 1);
       if (numRef.current) numRef.current.textContent = '0';
     }

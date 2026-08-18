@@ -119,19 +119,28 @@ export default function LineMode({
     }
 
     if (el >= ph.d) {
-      audio.strong();
-      audio.vibrate(40);
       s.lastTick = -1;
       s.idx++;
       s.off = 0;
       s.t0 = performance.now();
-      if (s.idx >= s.phases.length) {
+      const repDone = s.idx >= s.phases.length;
+      if (repDone) {
         s.idx = 0;
         s.reps++;
-        if (s.reps > s.total) {
-          finish();
-          return;
-        }
+      }
+      if (repDone && s.reps > s.total) {
+        audio.finish();
+        audio.vibrate([80, 50, 160]);
+        finish();
+        return;
+      }
+      // Zadnja faza ciklusa koja vodi u zadnje ponavljanje → najava "beep-beep".
+      if (repDone && s.reps === s.total) {
+        audio.lastRep();
+        audio.vibrate([40, 60, 40]);
+      } else {
+        audio.strong();
+        audio.vibrate(40);
       }
       setPhaseLabel(s.phases[s.idx].name);
       setRep(s.reps);

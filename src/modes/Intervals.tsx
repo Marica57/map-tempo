@@ -121,6 +121,10 @@ export default function Intervals() {
     else if (ph.t === 'priprema') audio.soft();
     else audio.rest();
     audio.vibrate(ph.t === 'rad' ? 80 : 50);
+    // Ulazak u ZADNJU radnu fazu (zadnja vježba zadnje serije) → najava "beep-beep".
+    if (ph.t === 'rad' && ph.s === m.current.sets && ph.v === m.current.ex) {
+      audio.lastRep();
+    }
   };
 
   const finish = () => {
@@ -129,8 +133,8 @@ export default function Intervals() {
     setRunning(false);
     setBadge({ text: 'GOTOVO', color: null });
     if (numRef.current) numRef.current.textContent = '✓';
-    audio.strong();
-    audio.vibrate(150);
+    audio.finish();
+    audio.vibrate([80, 50, 160]);
   };
 
   const step = () => {
